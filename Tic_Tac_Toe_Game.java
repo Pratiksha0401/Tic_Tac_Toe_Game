@@ -1,12 +1,14 @@
 import java.util.*;
 class Tic_Tac_Toe_Game
 {
-  static final int PLAYER=1;
-  static final int COMPUTER=0;
+	static final char PLAY_AGAIN_YES='Y';
+	static final char PLAY_AGAIN_NO='N';
+	static final int PLAYER=1;
+	static final int COMPUTER=0;
 	static char symbol;
 	static char player_symbol;
 	static char computer_symbol;
-	static char [] board={' ',' ',' ',' ',' ',' ',' ',' ',' ',' '};
+	static char [] board;
 	static Scanner sc=new Scanner(System.in);
 
 	
@@ -56,29 +58,31 @@ class Tic_Tac_Toe_Game
   public static void tossForGame(){
     Random rand1 = new Random();
     int toss=rand1.nextInt(2);
-    while(true)
-    {
     if(toss==PLAYER){
       System.out.println("Player won the toss");
-      playerTurn();
-      if (isGameFinished())
-				break;
-      computerTurn();
-      if (isGameFinished())
-				break;
-      }
+		  while(true){
+			  playerTurn();
+			  if (isGameFinished())
+						break;
+			  computerTurn();
+			  if (isGameFinished())
+						break;
+			  }
+	}
     else if(toss==COMPUTER){
       System.out.println("Computer won the toss");
-      computerTurn();
-      if (isGameFinished())
-				break;
-      playerTurn();
-      if (isGameFinished())
-				break;
-      }
-      else
+		 while(true){
+			 computerTurn();
+			  if (isGameFinished())
+						break;
+			  playerTurn();
+			  if (isGameFinished())
+						break;
+			  }
+		}
+	else	
        System.out.println("Not valid");
-    }
+ 
   }
 	
 	public static void placeMove(int position,char symbol) {
@@ -160,14 +164,10 @@ class Tic_Tac_Toe_Game
 	public static void computerTurn(){
 		Random rand = new Random();
 		int computerMove;
-		//System.out.println("Computer choose " + computerMove);
 			while (true){
 				computerMove = rand.nextInt(9) + 1;
 				if (isValidMove(computerMove)) {
 					break;
-				}else{
-				System.out.println(computerMove + " is not a valid move.");
-				break;
 				}
 			}
 			System.out.println("Computer choose " + computerMove);
@@ -195,28 +195,43 @@ class Tic_Tac_Toe_Game
 			System.out.println("Player wins!");
 			return true;
 		}
-		
-		if (hasContestantWon(computer_symbol)) {	
+		 if (hasContestantWon(computer_symbol)) {	
 			System.out.println("Computer wins!");
 			return true;
 		}
-		
-		for (int i = 0; i < board.length; i++) {
+		else{
+		for (int i = 1; i < board.length; i++) {
 				if (board[i]== ' ') {
 					return false;
 				}
 		}
-		showBoard();
 		System.out.println("The game ended in a tie!");
 		return true;
+		}
 	}
-
-
+ 
 	public static void main(String[] args) 
-	{
-		creating_Board_UC1();
-		choose_X_O_UC2();
-		tossForGame();
-	
+	{	
+		Scanner s=new Scanner(System.in);
+		char playAgain;
+		while(true){
+			board=new char[10];
+			board[1]=' ';
+			board[2]=' ';
+			board[3]=' ';
+			board[4]=' ';
+			board[5]=' ';
+			board[6]=' ';
+			board[7]=' ';
+			board[8]=' ';
+			board[9]=' ';
+			creating_Board_UC1();
+			choose_X_O_UC2();
+			tossForGame();
+			System.out.println("Do you want to play again?(Y/N)");
+			playAgain=s.nextLine().charAt(0);
+			if(playAgain==PLAY_AGAIN_NO && playAgain!=PLAY_AGAIN_YES)
+				break;
+			}
 	}
 }

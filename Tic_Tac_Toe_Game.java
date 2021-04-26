@@ -56,31 +56,29 @@ class Tic_Tac_Toe_Game
   public static void tossForGame(){
     Random rand1 = new Random();
     int toss=rand1.nextInt(2);
+    while(true)
+    {
     if(toss==PLAYER){
       System.out.println("Player won the toss");
-		  while(true){
-			  playerTurn();
-			  if (isGameFinished())
-						break;
-			  computerTurn();
-			  if (isGameFinished())
-						break;
-			  }
-	}
+      playerTurn();
+      if (isGameFinished())
+				break;
+      computerTurn();
+      if (isGameFinished())
+				break;
+      }
     else if(toss==COMPUTER){
       System.out.println("Computer won the toss");
-		 while(true){
-			 computerTurn();
-			  if (isGameFinished())
-						break;
-			  playerTurn();
-			  if (isGameFinished())
-						break;
-			  }
-		}
-	else	
+      computerTurn();
+      if (isGameFinished())
+				break;
+      playerTurn();
+      if (isGameFinished())
+				break;
+      }
+      else
        System.out.println("Not valid");
- 
+    }
   }
 	
 	public static void placeMove(int position,char symbol) {
@@ -162,10 +160,14 @@ class Tic_Tac_Toe_Game
 	public static void computerTurn(){
 		Random rand = new Random();
 		int computerMove;
+		//System.out.println("Computer choose " + computerMove);
 			while (true){
 				computerMove = rand.nextInt(9) + 1;
 				if (isValidMove(computerMove)) {
 					break;
+				}else{
+				System.out.println(computerMove + " is not a valid move.");
+				break;
 				}
 			}
 			System.out.println("Computer choose " + computerMove);
@@ -212,7 +214,7 @@ class Tic_Tac_Toe_Game
 
 	public static void main(String[] args) 
 	{
-    creating_Board_UC1();
+		creating_Board_UC1();
 		choose_X_O_UC2();
 		tossForGame();
 	
